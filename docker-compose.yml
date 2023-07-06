@@ -1,0 +1,25 @@
+version: "3.0"
+services:
+  app:
+    restart: always
+    build: ./app
+    ports:
+      - "8000:8000"
+    volumes:
+      - common_data:/usr/src/app/static
+    env_file: .env
+    command: bash -c "cd /usr/src && APP_SETTING=.env python -m app.server"
+
+  nginx:
+    restart: always
+    build: ./nginx/
+    ports:
+      - "80:80"
+    volumes:
+      - /www/static
+    depends_on:
+      - app
+    env_file: .env
+      
+volumes:
+  common_data:
