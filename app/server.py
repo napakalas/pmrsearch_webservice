@@ -15,9 +15,9 @@ async def search(request, tag):
     query = request.args.get('query')
     context = request.args.get('context', '')
     context = [] if len(context)==0 else context.split(',')
-    topk = int(request.args.get(topk, 5))
-    min_sim = float(request.args('minsim', 0.8))
-    c_weight = float(request.args('cweight', 0.8))
+    topk = int(request.args.get('topk', 5))
+    min_sim = float(request.args.get('minsim', 0.8))
+    c_weight = float(request.args.get('cweight', 0.8))
     if tag=='exposure':
         return json(searcher.search_exposure(query=query, context=['Liver'], topk=topk,  min_sim=min_sim, c_weight=c_weight))
     elif tag=='workspace':
